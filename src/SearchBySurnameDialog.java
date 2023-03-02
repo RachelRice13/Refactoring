@@ -1,7 +1,5 @@
 /*
- * 
  * This is a dialog for searching Employees by their surname.
- * 
  * */
 
 import java.awt.Container;
@@ -23,6 +21,7 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 	EmployeeDetails parent;
 	JButton search, cancel;
 	JTextField searchField;
+	
 	// constructor for search by surname dialog
 	public SearchBySurnameDialog(EmployeeDetails parent) {
 		setTitle("Search by Surname");
@@ -38,7 +37,7 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 		setSize(500, 190);
 		setLocation(350, 250);
 		setVisible(true);
-	}// end SearchBySurnameDialog
+	}
 	
 	// initialize search container
 	public Container searchPane() {
@@ -67,7 +66,7 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 		searchPanel.add(buttonPanel);
 
 		return searchPanel;
-	}// end searchPane
+	}
 
 	// action listener for save and cancel button
 	public void actionPerformed(ActionEvent e) {
@@ -77,9 +76,7 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 			// search Employee by surname
 			this.parent.searchEmployeeBySurname();
 			dispose();// dispose dialog
-		}// end if
-		// else dispose dialog
-		else if(e.getSource() == cancel)
+		} else if(e.getSource() == cancel)
 			dispose();// dispose dialog
-	}// end actionPerformed
-}// end class SearchBySurnameDialog
+	}
+}
