@@ -69,7 +69,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	String[] department = { "", "Administration", "Production", "Transport", "Management" };
 	String[] fullTime = { "", "Yes", "No" };
 
-	// initialize menu bar
 	private JMenuBar menuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu, recordMenu, navigateMenu, closeMenu;
@@ -149,33 +148,24 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return button;
 	}
 	
-
-	// initialize navigation panel
 	private JPanel navigPanel() {
 		JPanel navigPanel = new JPanel();
-
 		navigPanel.setBorder(BorderFactory.createTitledBorder("Navigate"));
-		navigPanel.add(first = new JButton(new ImageIcon(new ImageIcon("first.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
-		first.setPreferredSize(new Dimension(17, 17));
-		first.addActionListener(this);
-		first.setToolTipText("Display first Record");
-
-		navigPanel.add(previous = new JButton(new ImageIcon(new ImageIcon("prev.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
-		previous.setPreferredSize(new Dimension(17, 17));
-		previous.addActionListener(this);
-		previous.setToolTipText("Display next Record");
-
-		navigPanel.add(next = new JButton(new ImageIcon(new ImageIcon("next.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
-		next.setPreferredSize(new Dimension(17, 17));
-		next.addActionListener(this);
-		next.setToolTipText("Display previous Record");
-
-		navigPanel.add(last = new JButton(new ImageIcon(new ImageIcon("last.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
-		last.setPreferredSize(new Dimension(17, 17));
-		last.addActionListener(this);
-		last.setToolTipText("Display last Record");
-
+		
+		navigPanel.add(first = addNavButton("first.png", "first"));
+		navigPanel.add(previous = addNavButton("prev.png", "previous"));
+		navigPanel.add(next = addNavButton("next.png", "next"));
+		navigPanel.add(last = addNavButton("last.png", "last"));
+		
 		return navigPanel;
+	}
+	
+	private JButton addNavButton(String image, String type) {
+		JButton button = new JButton(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH)));
+		button.setPreferredSize(new Dimension(17, 17));
+		button.addActionListener(this);
+		button.setToolTipText("Display " + type + " Record");
+		return button;
 	}
 
 	private JPanel buttonPanel() {
