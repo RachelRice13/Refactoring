@@ -110,7 +110,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return menuBar;
 	}
 		
-	public JMenuItem addMenuItem(String title, int keyEvent) {
+	private JMenuItem addMenuItem(String title, int keyEvent) {
 		JMenuItem menuItem = new JMenuItem(title);
 		menuItem.addActionListener(this);
 		menuItem.setMnemonic(keyEvent);
@@ -118,29 +118,37 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return menuItem;
 	}
 
-	// initialize search panel
 	private JPanel searchPanel() {
 		JPanel searchPanel = new JPanel(new MigLayout());
-
 		searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
+		String textFieldWidth = "width 200:200:200, growx, pushx";
+		String buttonWidth = "width 35:35:35, height 20:20:20, growx, pushx, wrap";
+		
 		searchPanel.add(new JLabel("Search by ID:"), "growx, pushx");
-		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
-		searchByIdField.addActionListener(this);
-		searchByIdField.setDocument(new JTextFieldLimit(20));
-		searchPanel.add(searchId = new JButton("Go"),"width 35:35:35, height 20:20:20, growx, pushx, wrap");
-		searchId.addActionListener(this);
-		searchId.setToolTipText("Search Employee By ID");
-
+		searchPanel.add(searchByIdField = addSearchTextField(), textFieldWidth);
+		searchPanel.add(searchId = addSearchButton("Id"), buttonWidth);
+		
 		searchPanel.add(new JLabel("Search by Surname:"), "growx, pushx");
-		searchPanel.add(searchBySurnameField = new JTextField(20), "width 200:200:200, growx, pushx");
-		searchBySurnameField.addActionListener(this);
-		searchBySurnameField.setDocument(new JTextFieldLimit(20));
-		searchPanel.add(searchSurname = new JButton("Go"),"width 35:35:35, height 20:20:20, growx, pushx, wrap");
-		searchSurname.addActionListener(this);
-		searchSurname.setToolTipText("Search Employee By Surname");
-
+		searchPanel.add(searchBySurnameField = addSearchTextField(), textFieldWidth);
+		searchPanel.add(searchSurname = addSearchButton("Surname"), buttonWidth);
+		
 		return searchPanel;
 	}
+	
+	private JTextField addSearchTextField() {
+		JTextField textField = new JTextField(20);
+		textField.addActionListener(this);
+		textField.setDocument(new JTextFieldLimit(20));
+		return textField;
+	}
+	
+	private JButton addSearchButton(String type) {
+		JButton button = new JButton("Go");
+		button.addActionListener(this);
+		button.setToolTipText("Search Employee By " + type);
+		return button;
+	}
+	
 
 	// initialize navigation panel
 	private JPanel navigPanel() {
