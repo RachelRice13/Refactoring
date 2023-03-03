@@ -86,6 +86,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		cancel.addActionListener(this);
 
 		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
+		
 		// loop through all panel components and add fonts and listeners
 		for (int i = 0; i < empDetails.getComponentCount(); i++) {
 			empDetails.getComponent(i).setFont(this.parent.font1);
@@ -185,7 +186,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			if (checkInput()) {
 				addRecord();
 				dispose();
-				this.parent.changesMade = true;
+				this.parent.changesMadeForFile = true;
 			}
 			// else display message and set text fields to white colour
 			else {
