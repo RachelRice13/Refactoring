@@ -125,11 +125,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		
 		searchPanel.add(new JLabel("Search by ID:"), "growx, pushx");
 		searchPanel.add(searchByIdField = addSearchTextField(), textFieldWidth);
-		searchPanel.add(searchId = addSearchButton("Id"), buttonWidth);
+		searchPanel.add(searchId = addButton("Go", "Search Employee By Id"), buttonWidth);
 		
 		searchPanel.add(new JLabel("Search by Surname:"), "growx, pushx");
 		searchPanel.add(searchBySurnameField = addSearchTextField(), textFieldWidth);
-		searchPanel.add(searchSurname = addSearchButton("Surname"), buttonWidth);
+		searchPanel.add(searchSurname = addButton("Go", "Search Employee By Surname"), buttonWidth);
 		
 		return searchPanel;
 	}
@@ -141,10 +141,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return textField;
 	}
 	
-	private JButton addSearchButton(String type) {
-		JButton button = new JButton("Go");
+	private JButton addButton(String buttonLabel, String tooltip) {
+		JButton button = new JButton(buttonLabel);
 		button.addActionListener(this);
-		button.setToolTipText("Search Employee By " + type);
+		button.setToolTipText(tooltip);
 		return button;
 	}
 	
@@ -170,23 +170,13 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	private JPanel buttonPanel() {
 		JPanel buttonPanel = new JPanel();
+		String buttonWidth = "growx, pushx";
 
-		buttonPanel.add(add = new JButton("Add Record"), "growx, pushx");
-		add.addActionListener(this);
-		add.setToolTipText("Add new Employee Record");
+		buttonPanel.add(add = addButton("Add Record", "Add new Employee Record"), buttonWidth);
+		buttonPanel.add(edit = addButton("Edit Record", "Edit current Employee"), buttonWidth);
+		buttonPanel.add(deleteButton = addButton("Delete Record", "Delete current Employee"), buttonWidth + ", wrap");
+		buttonPanel.add(displayAll = addButton("List all Records", "List all Registered Employees"), buttonWidth);	
 		
-		buttonPanel.add(edit = new JButton("Edit Record"), "growx, pushx");
-		edit.addActionListener(this);
-		edit.setToolTipText("Edit current Employee");
-		
-		buttonPanel.add(deleteButton = new JButton("Delete Record"), "growx, pushx, wrap");
-		deleteButton.addActionListener(this);
-		deleteButton.setToolTipText("Delete current Employee");
-		
-		buttonPanel.add(displayAll = new JButton("List all Records"), "growx, pushx");
-		displayAll.addActionListener(this);
-		displayAll.setToolTipText("List all Registered Employees");
-
 		return buttonPanel;
 	}
 
