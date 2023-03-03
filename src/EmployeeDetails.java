@@ -180,7 +180,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return buttonPanel;
 	}
 
-	// initialize main/details panel
 	private JPanel detailsPanel() {
 		JPanel empDetails = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel();
@@ -253,7 +252,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return empDetails;
 	}
 
-	// display current Employee details
 	public void displayRecords(Employee thisEmployee) {
 		int countGender = 0;
 		int countDep = 0;
@@ -261,11 +259,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		searchByIdField.setText("");
 		searchBySurnameField.setText("");
-		// if Employee is null or ID is 0 do nothing else display Employee details
-		if (thisEmployee == null) {
-		} else if (thisEmployee.getEmployeeId() == 0) {
+
+		if (thisEmployee == null || thisEmployee.getEmployeeId() == 0) {
 		} else {
-			// find corresponding gender combo box value to current employee
 			while (!found && countGender < gender.length - 1) {
 				if (Character.toString(thisEmployee.getGender()).equalsIgnoreCase(gender[countGender]))
 					found = true;
@@ -273,7 +269,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 					countGender++;
 			} 
 			found = false;
-			// find corresponding department combo box value to current employee
+
 			while (!found && countDep < department.length - 1) {
 				if (thisEmployee.getDepartment().trim().equalsIgnoreCase(department[countDep]))
 					found = true;
@@ -287,29 +283,13 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			genderCombo.setSelectedIndex(countGender);
 			departmentCombo.setSelectedIndex(countDep);
 			salaryField.setText(inactiveCurrencyFieldFormat.format(thisEmployee.getSalary()));
-			// set corresponding full time combo box value to current employee
+			
 			if (thisEmployee.getFullTime() == true)
 				fullTimeCombo.setSelectedIndex(1);
 			else
 				fullTimeCombo.setSelectedIndex(2);
 		}
 		changeMadeForTextfield = false;
-	}
-
-	private void displayEmployeeSummaryDialog() {
-		// display Employee summary dialog if these is someone to display
-		if (isSomeoneToDisplay())
-			new EmployeeSummaryDialog(getAllEmloyees());
-	}
-
-	private void displaySearchByIdDialog() {
-		if (isSomeoneToDisplay())
-			new SearchByIdDialog(EmployeeDetails.this);
-	}
-
-	private void displaySearchBySurnameDialog() {
-		if (isSomeoneToDisplay())
-			new SearchBySurnameDialog(EmployeeDetails.this);
 	}
 
 	private void firstRecord() {
@@ -830,12 +810,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			if (checkInput() && !checkForChanges())
 				saveFileAs();
 			changeMadeForTextfield = false;
-		} else if (e.getSource() == searchById) {
-			if (checkInput() && !checkForChanges())
-				displaySearchByIdDialog();
-		} else if (e.getSource() == searchBySurname) {
-			if (checkInput() && !checkForChanges())
-				displaySearchBySurnameDialog();
+		} else if (e.getSource() == searchById && checkInput() && !checkForChanges() && isSomeoneToDisplay()) {
+			new SearchByIdDialog(EmployeeDetails.this);
+		} else if (e.getSource() == searchBySurname && checkInput() && !checkForChanges() && isSomeoneToDisplay()) {
+			new SearchBySurnameDialog(EmployeeDetails.this);
 		} else if (e.getSource() == searchId || e.getSource() == searchByIdField)
 			searchEmployeeById();
 		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
@@ -864,10 +842,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				lastRecord();
 				displayRecords(currentEmployee);
 			}
-		} else if (e.getSource() == listAll || e.getSource() == displayAll) {
-			if (checkInput() && !checkForChanges())
-				if (isSomeoneToDisplay())
-					displayEmployeeSummaryDialog();
+		} else if (e.getSource() == listAll || e.getSource() == displayAll && checkInput() && !checkForChanges() && isSomeoneToDisplay()) {
+			new EmployeeSummaryDialog(getAllEmloyees());
 		} else if (e.getSource() == create || e.getSource() == add) {
 			if (checkInput() && !checkForChanges())
 				new AddRecordDialog(EmployeeDetails.this);
