@@ -21,6 +21,7 @@ import javax.swing.border.EtchedBorder;
 
 public class SearchByDialog extends JDialog implements ActionListener {
 	EmployeeDetails parent;
+	PageLayoutSetup pageLayoutSetup;
 	JButton search, cancel;
 	JTextField searchField;
 	String type;
@@ -29,6 +30,7 @@ public class SearchByDialog extends JDialog implements ActionListener {
 		setTitle("Search by " + searchByType);
 		setModal(true);
 		this.parent = parent;
+		pageLayoutSetup = new PageLayoutSetup(parent);
 		type = searchByType;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -73,13 +75,13 @@ public class SearchByDialog extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {	
 		if(e.getSource() == search){
 			if(type.equals("Surname")) {
-				this.parent.searchBySurnameField.setText(searchField.getText());
-				this.parent.searchEmployeeBySurname();
+				pageLayoutSetup.searchBySurnameField.setText(searchField.getText());
+				pageLayoutSetup.searchEmployeeBySurname();
 			} else {
 				try {
 					Double.parseDouble(searchField.getText());
-					this.parent.searchByIdField.setText(searchField.getText());
-					this.parent.searchEmployeeById();
+					pageLayoutSetup.searchByIdField.setText(searchField.getText());
+					pageLayoutSetup.searchEmployeeById();
 				} catch (NumberFormatException num) {
 					searchField.setBackground(new Color(255, 150, 150));
 					JOptionPane.showMessageDialog(null, "Wrong ID format!");
