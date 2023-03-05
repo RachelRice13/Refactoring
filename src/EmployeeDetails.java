@@ -351,12 +351,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	public void searchEmployeeById() {
 		boolean found = false;
 
-		try {// try to read correct correct from input
-				// if any active Employee record search for ID else do nothing
+		try {
 			if (isSomeoneToDisplay()) {
 				firstRecord();
 				int firstId = currentEmployee.getEmployeeId();
-				// if ID to search is already displayed do nothing else loop through records
+				
 				if (searchByIdField.getText().trim().equals(idField.getText().trim()))
 					found = true;
 				else if (searchByIdField.getText().trim().equals(Integer.toString(currentEmployee.getEmployeeId()))) {
@@ -364,9 +363,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 					displayRecords(currentEmployee);
 				} else {
 					nextRecord();
-					// loop until Employee found or until all Employees have been checked
 					while (firstId != currentEmployee.getEmployeeId()) {
-						// if found break from loop and display Employee details else look for next record
 						if (Integer.parseInt(searchByIdField.getText().trim()) == currentEmployee.getEmployeeId()) {
 							found = true;
 							displayRecords(currentEmployee);
@@ -389,11 +386,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	public void searchEmployeeBySurname() {
 		boolean found = false;
-		// if any active Employee record search for ID else do nothing
+
 		if (isSomeoneToDisplay()) {
 			firstRecord();
 			String firstSurname = currentEmployee.getSurname().trim();
-			// if ID to search is already displayed do nothing else loop through records
+
 			if (searchBySurnameField.getText().trim().equalsIgnoreCase(surnameField.getText().trim()))
 				found = true;
 			else if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
@@ -401,9 +398,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				displayRecords(currentEmployee);
 			} else {
 				nextRecord();
-				// loop until Employee found or until all Employees have been checked
 				while (!firstSurname.trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
-					// if found break from loop and display Employee details else look for next record
 					if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
 						found = true;
 						displayRecords(currentEmployee);
@@ -811,9 +806,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				saveFileAs();
 			changeMadeForTextfield = false;
 		} else if (e.getSource() == searchById && checkInput() && !checkForChanges() && isSomeoneToDisplay()) {
-			new SearchByIdDialog(EmployeeDetails.this);
+			new SearchByDialog(EmployeeDetails.this, "ID");
 		} else if (e.getSource() == searchBySurname && checkInput() && !checkForChanges() && isSomeoneToDisplay()) {
-			new SearchBySurnameDialog(EmployeeDetails.this);
+			new SearchByDialog(EmployeeDetails.this, "Surname");
 		} else if (e.getSource() == searchId || e.getSource() == searchByIdField)
 			searchEmployeeById();
 		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
@@ -855,7 +850,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				deleteRecord();
 		} else if (e.getSource() == searchBySurname) {
 			if (checkInput() && !checkForChanges())
-				new SearchBySurnameDialog(EmployeeDetails.this);
+				new SearchByDialog(EmployeeDetails.this, "Surname");
 		}
 	}
 
