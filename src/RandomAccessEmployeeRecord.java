@@ -27,36 +27,36 @@ public class RandomAccessEmployeeRecord extends Employee {
    } 
 
    private String readName(RandomAccessFile file) throws IOException {
-      char name[] = new char[ 20 ], temp;
+      char name[] = new char[20], temp;
 
       for (int count = 0; count < name.length; count++) { 
          temp = file.readChar();
-         name[ count ] = temp;
+         name[count] = temp;
       }    
       
-      return new String( name ).replace( '\0', ' ' );
+      return new String(name).replace('\0', ' ');
    } 
 
    public void write(RandomAccessFile file) throws IOException {
-      file.writeInt( getEmployeeId() );
+      file.writeInt(getEmployeeId());
       writeName(file, getPps().toUpperCase());
-      writeName( file, getSurname().toUpperCase() );
-      writeName( file, getFirstName().toUpperCase() );
+      writeName(file, getSurname().toUpperCase());
+      writeName(file, getFirstName().toUpperCase());
       file.writeChar(getGender());
       writeName(file,getDepartment());
-      file.writeDouble( getSalary() );
+      file.writeDouble(getSalary());
       file.writeBoolean(getFullTime());
    }
 
-   private void writeName( RandomAccessFile file, String name ) throws IOException {
+   private void writeName(RandomAccessFile file, String name) throws IOException {
       StringBuffer buffer = null;
 
-      if ( name != null ) 
-         buffer = new StringBuffer( name );
+      if (name != null) 
+         buffer = new StringBuffer(name);
       else 
-         buffer = new StringBuffer( 20 );
+         buffer = new StringBuffer(20);
 
-      buffer.setLength( 20 );
-      file.writeChars( buffer.toString() );
+      buffer.setLength(20);
+      file.writeChars(buffer.toString());
    } 
 } 

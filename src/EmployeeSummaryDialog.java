@@ -52,8 +52,8 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		DefaultTableCellRenderer columnCenterAlignmentRender = new DefaultTableCellRenderer();
 		DefaultTableCellRenderer columnLeftAlignmentRender = new DefaultTableCellRenderer();
 		Vector<String> header = new Vector<String>();
-		String[] headerName = { "ID", "PPS Number", "Surname", "First Name", "Gender", "Department", "Salary", "Full Time" };
-		int[] colWidth = { 15, 100, 120, 120, 50, 120, 80, 80 };
+		String[] headerName = {"ID", "PPS Number", "Surname", "First Name", "Gender", "Department", "Salary", "Full Time"};
+		int[] colWidth = {15, 100, 120, 120, 50, 120, 80, 80};
 		columnCenterAlignmentRender.setHorizontalAlignment(JLabel.CENTER);
 		columnLeftAlignmentRender.setHorizontalAlignment(JLabel.LEFT);
 
